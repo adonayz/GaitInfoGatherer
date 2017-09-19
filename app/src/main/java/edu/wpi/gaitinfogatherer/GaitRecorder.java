@@ -42,6 +42,7 @@ public class GaitRecorder implements SensorEventListener {
     private int countAttempts;
     private TextView countAttemptsTextView;
     private LinkedList<LinkedList<String[]>> completeDataSetFromSurvey;
+    private final static int DELAYINMILLISECONDS = 1;
 
     GaitRecorder(Context context, String mFileName, TextView accDataDisplay, TextView gyroDataDisplay, TextView countAttemptsTextView) {
         this.context = context;
@@ -65,8 +66,8 @@ public class GaitRecorder implements SensorEventListener {
     }
 
     public void registerListeners() {
-        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_FASTEST);
-        mSensorManager.registerListener(this, mGyroscope, SensorManager.SENSOR_DELAY_FASTEST);
+        mSensorManager.registerListener(this, mAccelerometer, DELAYINMILLISECONDS * 1000);
+        mSensorManager.registerListener(this, mGyroscope, DELAYINMILLISECONDS * 1000);
     }
 
     public void unregisterListeners() {
