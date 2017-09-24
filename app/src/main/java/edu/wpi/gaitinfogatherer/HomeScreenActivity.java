@@ -1,14 +1,8 @@
 package edu.wpi.gaitinfogatherer;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 
 import org.researchstack.backbone.answerformat.AnswerFormat;
 import org.researchstack.backbone.answerformat.BirthDateAnswerFormat;
@@ -35,23 +29,15 @@ import java.util.Date;
 import java.util.List;
 
 public class HomeScreenActivity extends AppCompatActivity {
-
-    private static final int REQUEST_RECORD_GAIT_PERMISSION = 200;
     private static final int REQUEST_CONSENT = 0;
     private static final int REQUEST_SURVEY  = 1;
 
     private GaitStep gaitStep;
 
-
-    private static final String[] permissions = new String[]{
-            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BODY_SENSORS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-
-    private static final int PERMISSION_REQUEST_CODE = 1337;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
+        /*setContentView(R.layout.activity_home_screen);
 
         Button button = (Button) findViewById(R.id.surveyButton);
 
@@ -62,24 +48,8 @@ public class HomeScreenActivity extends AppCompatActivity {
                 displaySurvey();
             }
         });
-
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-
-    }
-
-    @Override
-    protected void onStop(){
-        super.onStop();
+*/
+        displaySurvey();
 
     }
 
@@ -139,7 +109,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
         formStep.setFormSteps(idStep, genderStep, bDayStep, weightStep, heightStep);
 
-        //steps.add(formStep);
+        steps.add(formStep);
 
 
         gaitStep = new GaitStep("gait_step");
@@ -241,21 +211,5 @@ public class HomeScreenActivity extends AppCompatActivity {
 
         return steps;
     }
-
-    public boolean checkPermissions() {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && this != null) {
-            for (String permission : permissions) {
-                if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public void requestPermisions(){
-        this.requestPermissions(permissions, PERMISSION_REQUEST_CODE);
-    }
-
 
 }
